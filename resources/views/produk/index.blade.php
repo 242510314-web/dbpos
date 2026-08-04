@@ -33,7 +33,7 @@
         <th>#</th>
         <th>User</th>
         <th>Foto</th>
-        <th>Nama</th>
+        <th>Nama Produk</th>
         <th>Harga Beli</th>
         <th>Harga Jual</th>
         <th>Stok</th>

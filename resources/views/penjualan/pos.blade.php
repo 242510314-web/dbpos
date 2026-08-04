@@ -91,8 +91,8 @@
                         <form method="POST" action="{{ route('itempenjualan.update', $item->id) }}">
                             @csrf @method('PUT')
                             <input type="number" name="quantity"
-                                   value="{{ $item->kuantitas }}"
-                                   class="form-control form-control-sm">
+                                    value="{{ $item->kuantitas }}"
+                                    class="form-control form-control-sm">
                         </form>
                     </td>
                     <td>Rp {{ number_format($item->subtotal) }}</td>

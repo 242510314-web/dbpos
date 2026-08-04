@@ -21,12 +21,12 @@ class PenjualanController extends Controller
 
         $sales = Penjualan::query()
 
-        //Filter berdasarkan role
+        // Filter berdasarkan role
         ->when($user->role->name === 'kasir', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })
 
-        //Search nama user
+        // Search nama user
         ->when($keyword, function ($query) use ($keyword) {
             $query->whereHas('user', function ($q) use ($keyword) {
                 $q->where('name', 'like', '%' . $keyword . '%');
@@ -84,9 +84,14 @@ class PenjualanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Penjualan $penjualan)
     {
-        //
+        $penjualan->load([
+            'user',
+            'itemPenjualan.produk'
+        ]);
+
+        return view('penjualan.show', compact('penjualan'));
     }
 
     /**
@@ -124,7 +129,7 @@ class PenjualanController extends Controller
 
         DB::transaction(function () use ($penjualan, $request) {
 
-            // 🔄 Hitung ulang total (anti manipulasi)
+            // Hitung ulang total
             $total = $penjualan->itemPenjualan()->sum('subtotal');
 
             $penjualan->update([
@@ -145,8 +150,8 @@ class PenjualanController extends Controller
     public function destroy(Penjualan $penjualan)
     {
         $this->authorize('delete', $penjualan);
-        
-        // ! pastikan hanya transaksi OPEN
+
+        // pastikan hanya transaksi OPEN
         if ($penjualan->status !== 'OPEN') {
             return redirect()->route('penjualan.index')->with('errors', 'Transaksi sudah selesai tidak bisa dibatalkan');
         }
@@ -154,14 +159,14 @@ class PenjualanController extends Controller
         DB::transaction(function () use ($penjualan) {
 
             foreach ($penjualan->itemPenjualan as $item) {
-                // 🔼 kembalikan stok
+                // kembalikan stok
                 $item->produk->increment('stok', $item->kuantitas);
             }
 
-            // ❌ hapus item
+            // hapus item
             $penjualan->itemPenjualan()->delete();
 
-            // ❌ hapus penjualan
+            // hapus penjualan
             $penjualan->delete();
         });
 
