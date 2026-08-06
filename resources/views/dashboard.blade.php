@@ -145,7 +145,7 @@ body{
 <div class="container py-4">
 
     <div class="text-center mb-5">
-        <h1 class="dashboard-title">Dashboard POS</h1>
+        <h1 class="dashboard-title">POS Siti</h1>
         <p class="dashboard-subtitle">
             Ringkasan Hari Ini
             ({{ $tanggalHariIni->translatedFormat('l, d F Y') }})
@@ -374,4 +374,4 @@ body{
 
 </div>
 
-@endsection
+@endsection    

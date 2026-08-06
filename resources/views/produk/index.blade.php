@@ -8,23 +8,25 @@
 
 <h1>Halaman Produk</h1>
 
-@can('create', App\Models\Produk::class)
-<a href="{{ route('produk.create') }}" class="btn btn-primary mb-3">Create</a>
-@endcan
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <form action="{{ route('produk.index') }}" method="GET" style="max-width: 400px; width: 100%;">
+        <div class="input-group">
+            <input
+                type="text"
+                name="search"
+                value=""
+                class="form-control"
+                placeholder="Search nama produk">
+            <button class="btn btn-outline-secondary" type="submit">
+                Search
+            </button>
+        </div>
+    </form>
 
-<form action="{{ route('produk.index') }}" method="GET" class="mb-3">
-    <div class="input-group">
-        <input
-            type="text"
-            name="search"
-            value=""
-            class="form-control"
-            placeholder="Search nama produk">
-        <button class="btn btn-outline-secondary" type="submit">
-            Search
-        </button>
-    </div>
-</form>
+    @can('create', App\Models\Produk::class)
+    <a href="{{ route('produk.create') }}" class="btn btn-primary">Create</a>
+    @endcan
+</div>
 
 <div class="table-responsive">
 <table class="table">
@@ -57,7 +59,7 @@
 
         <td>
             <img src="{{ asset('storage/'.$product->foto) }}"
-                 class="product-img">
+                class="product-img">
         </td>
 
         <td>
@@ -80,23 +82,23 @@
 
             @can('update', $product)
             <a href="{{ route('produk.edit', $product) }}"
-               class="btn btn-warning btn-sm">
-                Edit
+                class="btn btn-warning btn-sm">
+                ✏
             </a>
             @endcan
 
             @can('delete', $product)
 
             <form action="{{ route('produk.destroy', $product) }}"
-                  method="POST"
-                  class="d-inline">
+                    method="POST"
+                    class="d-inline">
 
                 @csrf
                 @method('DELETE')
 
                 <button class="btn btn-danger btn-sm"
                     onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">
-                    Hapus
+                    🗑
                 </button>
 
             </form>

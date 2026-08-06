@@ -145,7 +145,7 @@ body{
 <div class="container py-4">
 
     <div class="text-center mb-5">
-        <h1 class="dashboard-title">Dashboard POS</h1>
+        <h1 class="dashboard-title">POS Siti</h1>
         <p class="dashboard-subtitle">
             Ringkasan Hari Ini
             (<?php echo e($tanggalHariIni->translatedFormat('l, d F Y')); ?>)
@@ -380,5 +380,5 @@ body{
 
 </div>
 
-<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>    
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\dbpos\resources\views/dashboard.blade.php ENDPATH**/ ?>

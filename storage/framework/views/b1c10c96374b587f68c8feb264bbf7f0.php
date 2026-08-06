@@ -8,23 +8,25 @@
 
 <h1>Halaman Produk</h1>
 
-<?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create', App\Models\Produk::class)): ?>
-<a href="<?php echo e(route('produk.create')); ?>" class="btn btn-primary mb-3">Create</a>
-<?php endif; ?>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <form action="<?php echo e(route('produk.index')); ?>" method="GET" style="max-width: 400px; width: 100%;">
+        <div class="input-group">
+            <input
+                type="text"
+                name="search"
+                value=""
+                class="form-control"
+                placeholder="Search nama produk">
+            <button class="btn btn-outline-secondary" type="submit">
+                Search
+            </button>
+        </div>
+    </form>
 
-<form action="<?php echo e(route('produk.index')); ?>" method="GET" class="mb-3">
-    <div class="input-group">
-        <input
-            type="text"
-            name="search"
-            value=""
-            class="form-control"
-            placeholder="Search nama produk">
-        <button class="btn btn-outline-secondary" type="submit">
-            Search
-        </button>
-    </div>
-</form>
+    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create', App\Models\Produk::class)): ?>
+    <a href="<?php echo e(route('produk.create')); ?>" class="btn btn-primary">Create</a>
+    <?php endif; ?>
+</div>
 
 <div class="table-responsive">
 <table class="table">
@@ -59,7 +61,7 @@
 
         <td>
             <img src="<?php echo e(asset('storage/'.$product->foto)); ?>"
-                 class="product-img">
+                class="product-img">
         </td>
 
         <td>
@@ -86,23 +88,23 @@
 
             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $product)): ?>
             <a href="<?php echo e(route('produk.edit', $product)); ?>"
-               class="btn btn-warning btn-sm">
-                Edit
+                class="btn btn-warning btn-sm">
+                ✏
             </a>
             <?php endif; ?>
 
             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete', $product)): ?>
 
             <form action="<?php echo e(route('produk.destroy', $product)); ?>"
-                  method="POST"
-                  class="d-inline">
+                    method="POST"
+                    class="d-inline">
 
                 <?php echo csrf_field(); ?>
                 <?php echo method_field('DELETE'); ?>
 
                 <button class="btn btn-danger btn-sm"
                     onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">
-                    Hapus
+                    🗑
                 </button>
 
             </form>
